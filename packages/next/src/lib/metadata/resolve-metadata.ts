@@ -314,14 +314,10 @@ export async function accumulateMetadata(
 
     merge(resolvedMetadata, metadata, staticFilesMetadata, titleTemplates)
 
-    // If the layout is the same layer with page, skip the leaf layout and leaf page
-    // The leaf layout and page are the last two items
-    if (i < metadataItems.length - 2) {
-      titleTemplates = {
-        title: resolvedMetadata.title?.template || null,
-        openGraph: resolvedMetadata.openGraph?.title?.template || null,
-        twitter: resolvedMetadata.twitter?.title?.template || null,
-      }
+    titleTemplates = {
+      title: resolvedMetadata.title?.template || null,
+      openGraph: resolvedMetadata.openGraph?.title?.template || null,
+      twitter: resolvedMetadata.twitter?.title?.template || null,
     }
   }
 
