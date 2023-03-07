@@ -29,7 +29,7 @@ describe('accumulateMetadata', () => {
       })
     })
 
-    it('should merge title with parent layout ', async () => {
+    it('should merge title with nearest layout title template (parent level) ', async () => {
       const metadataItems: MetadataItems = [
         [{ title: 'root' }, null],
         [
@@ -41,6 +41,25 @@ describe('accumulateMetadata', () => {
           null,
         ],
         [null, null], // same level layout
+        [{ title: 'page' }, null],
+      ]
+      const metadata = await accumulateMetadata(metadataItems)
+      expect(metadata).toMatchObject({
+        title: { absolute: '2nd parent layout page', template: null },
+      })
+    })
+
+    it('should merge title with nearest layout title template (same level) ', async () => {
+      const metadataItems: MetadataItems = [
+        [{ title: 'root' }, null],
+        [
+          { title: { absolute: 'layout', template: '1st parent layout %s' } },
+          null,
+        ],
+        [
+          { title: { absolute: 'layout', template: '2nd parent layout %s' } },
+          null,
+        ], // same level layout
         [{ title: 'page' }, null],
       ]
       const metadata = await accumulateMetadata(metadataItems)

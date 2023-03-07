@@ -162,14 +162,14 @@ createNextDescribe(
 
       it('should support title template', async () => {
         const browser = await next.browser('/title-template')
-        // Use the parent layout (root layout) instead of app/title-template/layout.tsx
-        expect(await browser.eval(`document.title`)).toBe('Page')
+        expect(await browser.eval(`document.title`)).toBe('Page | Layout')
       })
 
       it('should support stashed title in one layer of page and layout', async () => {
         const browser = await next.browser('/title-template/extra')
-        // Use the parent layout (app/title-template/layout.tsx) instead of app/title-template/extra/layout.tsx
-        expect(await browser.eval(`document.title`)).toBe('Extra Page | Layout')
+        expect(await browser.eval(`document.title`)).toBe(
+          'Extra Page | Extra Layout'
+        )
       })
 
       it('should use parent layout title when no title is defined in page', async () => {
